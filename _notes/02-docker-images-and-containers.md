@@ -21,3 +21,7 @@
 ## Containers
 
 - They execute the code in the Docker image and add a read-write layer on top
+
+
+- Creating container from image
+  . `docker run <image_name>`
