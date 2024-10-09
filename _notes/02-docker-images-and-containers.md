@@ -17,6 +17,8 @@
   7ed154284385   node      "docker-entrypoint.s…"   35 seconds ago       Exited (0) 16 seconds ago             gracious_moser
   423bed4cc4d7   node      "docker-entrypoint.s…"   About a minute ago   Exited (0) 37 seconds ago             pedantic_noyce
   ```
+- Remember that images are read-only, so new changes on your code will need to be built into a new image
+- Every time you build an image, a new layer is added on top of the previous one and the new image is created with the changes, if there are no changes, the new image will be the same as the previous one because the layers are cached
 
 ## Containers
 
@@ -26,11 +28,15 @@
     ```Dockerfile
     # Use an existing docker image as a base
     FROM node
+    # Set the working directory in the container
+    WORKDIR /app
+    # Copy the package.json file to the container (this is done first to take advantage of the cache)
+    COPY package.json /app
+    # Run a command to install dependencies
+    RUN npm install
     # Use copy . /app to copy all files from the current directory to the container except for the Dockerfile
     # Here the first dot refers to host file system, and the second dot or route (/app in this case) refers to the image/container file system
     COPY . /app
-    # Run a command to install dependencies
-    RUN npm install
     # Since the container is running in a different environment, we need to expose a port to access the application (this is mostly an informative command since it just tells the user that the container will use this port, but it does not actually open the port)
     EXPOSE 3000
     # Run a command to start the application
