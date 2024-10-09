@@ -52,3 +52,31 @@
     ```
     - Here, `-p` is used to map the port 3000 from the host to the port 3000 in the container
     - Take in consideration that you can use only the first characters of the image id
+
+## Managing Images & Containers
+
+> [!NOTE]
+> When you need help with a command, you can use the `--help` flag to get more information about it
+
+```bash
+# List all images
+docker images
+# List all running containers
+docker ps
+# List all containers (including the ones that are not running)
+docker ps -a
+# Create a container from an image
+docker run <image_id>
+# Create a container in detached mode (run in the background and not block the terminal)
+docker run -d <image_id>
+# Attach to a detached container
+docker attach <container_name>
+# Run a previously created container (detached mode is default)
+docker start <container_name>
+# Run a previously created container in attached mode
+docker start -a <container_name>
+# Stop a container
+docker stop <container_name>
+# Get logs from a container
+docker logs <container_name>
+```
