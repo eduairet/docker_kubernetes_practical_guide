@@ -80,3 +80,15 @@ docker stop <container_name>
 # Get logs from a container
 docker logs <container_name>
 ```
+
+## Entering Interactive Mode
+
+- To enter the interactive mode of a container, you can use the following command
+  ```bash
+  docker run -it <image_id>
+  docker start -a -i <container_name>
+  # Get previously created containers with docker ps -a
+  ```
+  - Here, `-it` is used to run the container in interactive mode which allows us to interact with the container using the terminal, where `-i` is used to keep the STDIN open even if not attached and `-t` is used to allocate a pseudo-TTY
+  - And `-a` is used to attach to the container and `-i` is used to keep the STDIN open even if not attached
+- To exit the interactive mode, you can use the `exit` command
