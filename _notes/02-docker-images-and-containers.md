@@ -19,6 +19,82 @@
   ```
 - Remember that images are read-only, so new changes on your code will need to be built into a new image
 - Every time you build an image, a new layer is added on top of the previous one and the new image is created with the changes, if there are no changes, the new image will be the same as the previous one because the layers are cached
+- To inspect an image, you can use the following command
+  ```bash
+  docker image inspect <image_id>
+  ```
+  - This will show you the metadata of the image
+
+<details>
+  <summary>Example</summary>
+
+```
+[
+    {
+        "Id": "sha256:2f0aa08406e28dc9f16f38971d72fad6004509ab3bda1313bc12b8f2264599c5",
+        "RepoTags": [],
+        "RepoDigests": [],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2024-10-10T03:47:56.537035596Z",
+        "DockerVersion": "27.2.0",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+                "PYTHON_VERSION=3.13.0"
+            ],
+            "Cmd": [
+                "python",
+                "main.py"
+            ],
+            "ArgsEscaped": true,
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": null
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 381194769,
+        "GraphDriver": {
+            "Data": null,
+            "Name": "overlayfs"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:d50132f2fe78aaa8e67f229e53305d0c4a7a86c9deda4bf3160be0a678926458",
+                "sha256:3e14a6961052c6ebe30f972947bf9d7ffec586a2bf081738fd9acd74fdceb343",
+                "sha256:f91dc7a486d99ec2e605b4417fe39b503aa3045d6f91f92810b82fae54ae9293",
+                "sha256:2bce433c3a290e09105af7c14ea063b125babdcc74544fa5773a2ce88e54f78e",
+                "sha256:7f22fdb1c7d198a67572f86a4b7865fa185be7d2cc25b022a1abbd610fee7e5f",
+                "sha256:8b83ad8f507b9c0069b20868e79dc7900a6312f0e9f22299366884fdcdc89cb8",
+                "sha256:2b55cf69e53ebae408b13fca15892c1ab7e7a46702de9509a625ce97a18d1dbd",
+                "sha256:6c6ce8575c0dd31c075d5a7639408637e5f30407509bb0cb2da26390a301f9e0",
+                "sha256:e21b0090dcf14e76e0a3f41669c6ba6d26d069558941c43bfe81da37fc354ae4"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2024-10-10T04:20:29.566134726Z"
+        }
+    }
+]
+```
+
+</details>
 
 ## Containers
 
@@ -60,7 +136,7 @@
 
 ```bash
 # List all images
-docker images
+docker image ls
 # List all running containers
 docker ps
 # List all containers (including the ones that are not running)
@@ -92,3 +168,23 @@ docker logs <container_name>
   - Here, `-it` is used to run the container in interactive mode which allows us to interact with the container using the terminal, where `-i` is used to keep the STDIN open even if not attached and `-t` is used to allocate a pseudo-TTY
   - And `-a` is used to attach to the container and `-i` is used to keep the STDIN open even if not attached
 - To exit the interactive mode, you can use the `exit` command
+
+## Deleting Images & Containers
+
+```bash
+# Delete a container (make sure it is not running)
+docker rm <container_name>
+docker rm <container_name> <container_name> <container_name>
+# Remove all stopped containers
+docker container prune
+# Delete an image (make sure it is not being used by any container)
+docker rmi <image_id>
+# Remove all images
+docker image prune
+```
+
+- You can make the container stop after a certain amount of time using the `--rm` flag when creating the container
+  ```bash
+  docker run -p 3000:3000 --rm <image_id>
+  ```
+  - This will remove the container after it stops
