@@ -188,3 +188,34 @@ docker image prune
   docker run -p 3000:3000 --rm <image_id>
   ```
   - This will remove the container after it stops
+
+## Copying Files into Containers
+
+- To copy files into a container, you can use the `docker cp` command
+  ```bash
+  docker cp <file_path> <container_name>:<destination_path>
+  ```
+  - Here, `<file_path>` is the path to the file you want to copy, `<container_name>` is the name of the container you want to copy the file to, and `<destination_path>` is the path where you want to copy the file to in the container
+- To copy files from a container, you can use the same command but switch the source and destination
+  ```bash
+  docker cp <container_name>:<file_path> <destination_path>
+  ```
+  - Here, `<container_name>` is the name of the container you want to copy the file from, `<file_path>` is the path to the file you want to copy, and `<destination_path>` is the path where you want to copy the file to on your local machine
+- You can try this using the [04-copy-files](../exercices/04.copy-files/) exercise:
+
+  ```bash
+  docker run <image_id>
+  #Current directory: /app
+  #Files in the current directory:
+  #main.py
+  #Dockerfile
+
+  docker cp ../../text.txt <container_name>:/app
+  #Current directory: /app
+  #Files in the current directory:
+  #text.txt
+  #main.py
+  #Dockerfile
+
+  docker cp <container_name>:/app/text.txt  copied-from-container.txt
+  ```
