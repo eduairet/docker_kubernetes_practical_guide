@@ -219,3 +219,17 @@ docker image prune
 
   docker cp <container_name>:/app/text.txt  copied-from-container.txt
   ```
+
+## Naming & Tagging Containers & Images
+
+- You can name a container using the `--name` flag when creating the container
+  ```bash
+  docker run --name <container_name> <image_id>
+  ```
+  - Here, `<container_name>` is the name you want to give to the container
+- You can tag an image using the `-t` or `--tag` to flag when building the image
+  ```bash
+  docker build -t <image_name>:<tag> .
+  ```
+  - Here, `<image_name>` is the name you want to give to the image
+  - Images have also names which are the repository and the tag, for example, `node:latest`
