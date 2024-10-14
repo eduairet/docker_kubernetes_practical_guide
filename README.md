@@ -13,4 +13,5 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
 2. [Node Image Based Container](./exercices/02-node-based-container/Dockerfile)
 3. [Interactive Mode](./exercices/03-interactive-mode/Dockerfile)
 4. [Copy Files](./exercices/04-copy-files/Dockerfile)
-5. [Sharing images](./exercices/05-sharing-images/Dockerfile)
+5. [Practice](./exercices/05-assignment-problem/instructions.txt)
+6. [Sharing images](./exercices/06-sharing-images/Dockerfile)
