@@ -181,6 +181,8 @@ docker container prune
 docker rmi <image_id>
 # Remove all images
 docker image prune
+# By default docker image prune will not remove images with tags, to remove all images use the -a flag
+docker image prune -a
 ```
 
 - You can make the container stop after a certain amount of time using the `--rm` flag when creating the container
