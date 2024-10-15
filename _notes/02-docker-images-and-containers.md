@@ -235,3 +235,36 @@ docker image prune -a
   ```
   - Here, `<image_name>` is the name you want to give to the image
   - Images have also names which are the repository and the tag, for example, `node:latest`
+
+## Sharing Images
+
+- You can share images with others by sharing the Dockerfile or by pushing the built image to a registry
+  - When working with a team, it is common to use a registry to share images
+- The most common registry is [Docker Hub](https://hub.docker.com/)
+  - In order to push an image to Docker Hub, you need to create an account and login using the following commands
+    ```bash
+    docker login
+    ```
+  - Next you'll need to [create a repository on Docker Hub](https://hub.docker.com/repository/create?namespace=<namespace name>)
+  - When's created you can find the pull command on the repository page
+    ```bash
+    docker pull <namespace>/<repository>:<tag>
+    ```
+    - You'll need to have the image built with the same name and tag locally
+      - If you don't have the image built, you can build it using the following command
+        ```bash
+        docker build -t <namespace>/<repository>:<tag> .
+        ```
+      - If you have the image built with a different name, you can tag it using the following command
+        ```bash
+        docker tag <old name> <repository name>
+        ```
+      - Remember that docker doesn't track the latest tag, so you'll need to tag the image with the latest tag if you want to use it
+        ```bash
+        docker tag <old name> <repository name>:latest
+        ```
+        - By default it uses the latest tag used when pulling the image
+- To push the image to Docker Hub, you can use the following command
+  ```bash
+  docker push <namespace>/<repository>:<tag>
+  ```
