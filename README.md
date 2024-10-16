@@ -6,6 +6,7 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
 
 1. [Intro](./_notes/01-intro.md)
 2. [Docker Images & Containers: The Core Building Blocks](./_notes/02-docker-images-and-containers.md)
+3. [Managing Data & Working with Volumes](./_notes/03-managing-data-and-working-with-volumes.md)
 
 ## Exercises
 
@@ -15,3 +16,5 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
 4. [Copy Files](./exercices/04-copy-files/Dockerfile)
 5. [Practice](./exercices/05-assignment-problem/instructions.txt)
 6. [Sharing images](./exercices/06-sharing-images/Dockerfile)
+   - [eduairet/test-repository](https://hub.docker.com/repository/docker/eduairet/test-repository/settings)
+7. [Kinds of Data](./exercices/07-kinds-of-data/Dockerfile)
