@@ -29,3 +29,14 @@
         - You should use absolute paths for the host directory or use the `-v $(pwd)/:/path/to/workdir` variable (Linux/Mac) or `-v "%cd%":/path/to/workdir` (Windows).
         - Make sure the host directory is listed on the Docker Desktop settings (settings -> resources -> file sharing).
       - If we update the data in the host directory, it will be updated in the container as well.
+    - Bind mounts are mostly used for development purposes, when you want to share code between the host and the container, so always try to use `COPY` in production.
+- Read-only volumes are volumes that can't be written to, you can use the `ro` flag to create a read-only volume.
+  ```sh
+  docker run -v /host/path:/container/path:ro my-image
+  ```
+- Useful commands:
+  - `docker volume ls`: list all volumes.
+  - `docker volume create <volume-name>`: create a named volume.
+  - `docker volume inspect <volume-name>`: inspect a volume.
+  - `docker volume prune`: remove all anonymous volumes.
+  - `docker volume rm <volume-name>`: remove a specific volume.
