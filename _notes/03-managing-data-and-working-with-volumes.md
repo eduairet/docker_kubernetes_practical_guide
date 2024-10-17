@@ -40,3 +40,27 @@
   - `docker volume inspect <volume-name>`: inspect a volume.
   - `docker volume prune`: remove all anonymous volumes.
   - `docker volume rm <volume-name>`: remove a specific volume.
+
+## Arguments and Environment Variables
+
+- You can pass arguments to a container using the `--build-arg` flag.
+  ```sh
+  docker build --build-arg MY_ARG=value .
+  ```
+  - You can use the `ARG` instruction in the Dockerfile to define the argument.
+    ```Dockerfile
+    ARG MY_ARG
+    ENV MY_ENV=$MY_ARG
+    ```
+- You can set environment variables in the Dockerfile using the `ENV` instruction or in the `docker run` command.
+  ```Dockerfile
+  ENV MY_ENV=value
+  ```
+  ```sh
+  docker run --env MY_ENV=value my-image
+  ```
+  - Be careful with sensitive data, don't hardcode passwords or API keys in the Dockerfile.
+    - Use the `--env-file` flag to pass environment variables from a file instead.
+      ```sh
+      docker run --env-file .env my-image
+      ```
