@@ -18,3 +18,4 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
 6. [Sharing images](./exercices/06-sharing-images/Dockerfile)
    - [eduairet/test-repository](https://hub.docker.com/repository/docker/eduairet/test-repository/settings)
 7. [Kinds of Data](./exercices/07-kinds-of-data/Dockerfile)
+8. [Bind Mount](./exercices/08-bind-mount/Dockerfile)

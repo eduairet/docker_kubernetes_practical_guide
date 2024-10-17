@@ -21,3 +21,11 @@
       ```
       - When you run a new container now, you can use the same volume with the same name and there will be no data loss.
   - **Bind mounts**: link a container path to a host path (a directory on your machine).
+    - You can use bind mounts to share data between the host and the container.
+      ```sh
+      docker run -v /host/path:/container/path my-image
+      ```
+      - The data is stored in the host directory and is accessible from the container.
+        - You should use absolute paths for the host directory or use the `-v $(pwd)/:/path/to/workdir` variable (Linux/Mac) or `-v "%cd%":/path/to/workdir` (Windows).
+        - Make sure the host directory is listed on the Docker Desktop settings (settings -> resources -> file sharing).
+      - If we update the data in the host directory, it will be updated in the container as well.
