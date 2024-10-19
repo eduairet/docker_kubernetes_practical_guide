@@ -7,6 +7,7 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
 1. [Intro](./_notes/01-intro.md)
 2. [Docker Images & Containers: The Core Building Blocks](./_notes/02-docker-images-and-containers.md)
 3. [Managing Data & Working with Volumes](./_notes/03-managing-data-and-working-with-volumes.md)
+4. [Networking: (Cross-)Container Communication](./_notes/04-cross-container-communication.md)
 
 ## Exercises
 
