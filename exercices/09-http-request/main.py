@@ -2,6 +2,13 @@
 
 import requests
 import asyncio
+import pyodbc
+import os
+
+SERVER = os.environ["MSQL_SERVER"]
+PORT = os.environ["MSQL_PORT"]
+USER = os.environ["MSQL_USER"]
+PASSWORD = os.environ["MSQL_PASSWORD"]
 
 
 async def main():
@@ -11,7 +18,21 @@ async def main():
         None, requests.get, url, {"timeout": 10}
     )
     result = response.json()["bitcoin"]["usd"]
+    addPriceToDB(result)
     print(f"The price of Bitcoin is ${result}")
+
+
+def addPriceToDB(price):
+    """Function to add the price of Bitcoin in USD to the Microsoft SQL Server database"""
+
+    connectionString = f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={SERVER},{PORT};DATABASE=BitcoinDatabase;UID={USER};PWD={PASSWORD}"
+    print(connectionString)
+    conn = pyodbc.connect(connectionString)
+
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO BitcoinPrice (date,price) VALUES (GETDATE(),?)", price)
+    conn.commit()
+    cursor.close()
 
 
 if __name__ == "__main__":
