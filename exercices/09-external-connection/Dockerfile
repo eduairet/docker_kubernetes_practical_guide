@@ -1,10 +1,10 @@
 # Just getting the price
-# docker build -t 09-http-request:get-price .
-# docker run --rm 09-http-request:get-price
+# docker build -t 09-external-connection:get-price .
+# docker run --rm 09-external-connection:get-price
 
 # Getting the price connecting to a local SQL Server
-# docker build -t 09-http-request:db-connection .
-# docker run --rm --env-file .env 09-http-request:db-connection
+# docker build -t 09-external-connection:db-connection .
+# docker run --rm --env-file .env 09-external-connection:db-connection
 # Where .env contains the following:
     # MSQL_SERVER=ServerNameOrIpAdress
     # MSQL_PORT=ServerPort

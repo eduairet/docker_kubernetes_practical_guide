@@ -20,3 +20,4 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
    - [eduairet/test-repository](https://hub.docker.com/repository/docker/eduairet/test-repository/settings)
 7. [Kinds of Data](./exercices/07-kinds-of-data/Dockerfile)
 8. [Bind Mount](./exercices/08-bind-mount/Dockerfile)
+9. [Connecting to External Sources (APIs, DBs, Other Containers)](./exercices/09-external-connection/Dockerfile)
