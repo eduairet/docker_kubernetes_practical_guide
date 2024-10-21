@@ -25,12 +25,14 @@ async def main():
 def addPriceToDB(price):
     """Function to add the price of Bitcoin in USD to the Microsoft SQL Server database"""
 
-    connectionString = f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={SERVER},{PORT};DATABASE=BitcoinDatabase;UID={USER};PWD={PASSWORD}"
+    connectionString = f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={SERVER},{PORT};DATABASE=BitcoinDatabase;UID={USER};PWD={PASSWORD};"
     print(connectionString)
     conn = pyodbc.connect(connectionString)
 
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO BitcoinPrice (date,price) VALUES (GETDATE(),?)", price)
+    cursor.execute(
+        "INSERT INTO BitcoinPriceUsd (Date,UsdPrice) VALUES (GETDATE(),?)", price
+    )
     conn.commit()
     cursor.close()
 
