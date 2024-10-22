@@ -2,6 +2,10 @@
 # docker build -t 09-external-connection:get-price .
 # docker run --rm 09-external-connection:get-price
 
+# Setup Microsoft SQL Server
+# sudo docker pull mcr.microsoft.com/mssql/server:2022-latest
+# docker run -d --name <server_name> -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<server_password>' -p <local_port>:<container_port> mcr.microsoft.com/mssql/server:2022-latest
+
 # Getting the price connecting to a local SQL Server
 # docker build -t 09-external-connection:db-connection .
 # docker run --rm --env-file .env 09-external-connection:db-connection
