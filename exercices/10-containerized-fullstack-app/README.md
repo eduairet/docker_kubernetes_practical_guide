@@ -4,4 +4,4 @@
 
 - [Database](./database) - Microsoft SQL Server
 - [Backend](./backend) - ASP.NET Core Web API
-- [Frontend](./frontend)
+- [Frontend](./frontend) - Vite React SWC TypeScript App
