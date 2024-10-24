@@ -5,6 +5,10 @@ WORKDIR /app
 EXPOSE 7073
 EXPOSE 5035
 
+ARG MSQL_SERVER
+ARG MSQL_PASSWORD
+ENV ConnectionStrings__DefaultConnection="Server=${MSQL_SERVER},1433;Database=DockerDemoGoals;User Id=sa;Password=${MSQL_PASSWORD};"
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src

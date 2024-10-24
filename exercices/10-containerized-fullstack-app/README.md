@@ -27,10 +27,10 @@
 
   - Build the image
     ```sh
-    docker build -t backend:development ./backend
+    docker build -t backend:development --build-arg 'MSQL_SERVER=<server>'  --build-arg 'MSQL_PASSWORD=<password>'  ./backend
     ```
   - Start the container
     ```sh
-    docker run -d --name backend -e 'MSQL_PASSWORD=<server_password>' --network fullstack-app -p 5035:5035 backend:development
+    docker run -d --name backend --network fullstack-app -p 5035:8080 backend:development
     ```
   - Visit http://localhost:5035/swagger/index.html
