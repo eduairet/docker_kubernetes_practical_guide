@@ -47,12 +47,12 @@ public class GoalsRepository(IConfiguration config) : IGoalsRepository
         throw new Exception("Could not add goal");
     }
 
-    public bool EditGoal(Goal goal)
+    public bool EditGoal(GoalUpdateDto goal)
     {
         Goal? userDb = _data.Goals.Where(u => u.Id == goal.Id).FirstOrDefault();
         if (userDb != null)
         {
-            _mapper.Map(goal, userDb);
+            userDb.Text = goal.Text;
             return this.SaveChanges();
         }
         throw new Exception("Could not edit goal");
@@ -63,7 +63,7 @@ public class GoalsRepository(IConfiguration config) : IGoalsRepository
         Goal? goalDb = _data.Goals.Where(u => u.Id == goalId).FirstOrDefault();
         if (goalDb != null)
         {
-            this.RemoveEntity<Goal>(goalDb);
+            this.RemoveEntity(goalDb);
             return this.SaveChanges();
         }
         throw new Exception("Could not delete goal");

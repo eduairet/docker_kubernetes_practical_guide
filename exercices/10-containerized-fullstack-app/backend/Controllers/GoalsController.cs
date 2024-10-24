@@ -21,7 +21,7 @@ public class GoalsController(IGoalsRepository goalsRepository) : ControllerBase
     public IActionResult AddGoal(GoalAddDto goal) => _repo.AddGoal(goal) ? Ok() : BadRequest("Could not add goal");
 
     [HttpPut()]
-    public IActionResult EditGoal(Goal goal) => _repo.EditGoal(goal) ? Ok() : BadRequest("Could not edit goal");
+    public IActionResult EditGoal(GoalUpdateDto goal) => _repo.EditGoal(goal) ? Ok() : BadRequest("Could not edit goal");
 
     [HttpDelete("{goalId}")]
     public IActionResult DeleteGoal(int goalId) => _repo.DeleteGoal(goalId) ? Ok() : BadRequest("Could not delete goal");
