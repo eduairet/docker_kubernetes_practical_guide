@@ -1,6 +1,37 @@
 @backend_HostAddress = http://localhost:5035
 
-GET {{backend_HostAddress}}/weatherforecast/
+GET {{backend_HostAddress}}/goals/
+Accept: application/json
+
+###
+
+GET {{backend_HostAddress}}/goals/1
+Accept: application/json
+
+###
+
+POST {{backend_HostAddress}}/goals/
+Content-Type: application/json
+
+{
+    "title": "New Goal",
+    "description": "This is a new goal"
+}
+
+###
+
+PUT {{backend_HostAddress}}/goals/
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Updated Goal",
+    "description": "This is an updated goal"
+}
+
+###
+
+DELETE {{backend_HostAddress}}/goals/1
 Accept: application/json
 
 ###
