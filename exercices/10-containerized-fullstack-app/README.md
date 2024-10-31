@@ -20,7 +20,7 @@
     ```
   - Start the container
     ```sh
-    docker run -d --name database --network fullstack-app -e 'SA_PASSWORD=<server_password>' -p 1433:1433 database:development
+    docker run -d --name database --network fullstack-app --rm -e 'SA_PASSWORD=<server_password>' -p 1433:1433 database:development
     ```
 
 - Start the backend
@@ -31,6 +31,18 @@
     ```
   - Start the container
     ```sh
-    docker run -d --name backend --network fullstack-app -p 5035:8080 backend:development
+    docker run -d --name backend --network fullstack-app --rm -p 5035:8080 backend:development
     ```
   - Visit http://localhost:5035/swagger/index.html
+
+- Start the frontend
+
+  - Build the image
+    ```sh
+    docker build -t frontend:development ./frontend
+    ```
+  - Start the container
+    ```sh
+    docker run --name frontend --network fullstack-app --rm -it -p 5173:5173 frontend:development
+    ```
+  - Visit http://localhost:3000
