@@ -8,7 +8,7 @@
 
 ## Running the App
 
-- Create a network for the app
+- Create a network to be shared by the containers
   ```sh
   docker network create fullstack-app
   ```
