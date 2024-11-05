@@ -1,31 +1,14 @@
-import { useState } from 'react';
+import AddGoalForm from './Components/AddGoalForm';
+import Goals from './Components/Goals';
 
 function App() {
-  const [goals, setGoals] = useState<string[]>([]);
-  const [newGoal, setNewGoal] = useState('');
-
-  const addGoalHandler = (event: React.FormEvent) => {
-    event.preventDefault();
-    setGoals(prevGoals => [...prevGoals, newGoal]);
-    setNewGoal('');
-  };
-
   return (
-    <main>
-      <h1>Docker Goals</h1>
-      <form onSubmit={addGoalHandler}>
-        <input
-          type='text'
-          value={newGoal}
-          onChange={event => setNewGoal(event.target.value)}
-        />
-        <button>Add Goal</button>
-      </form>
-      <ul>
-        {goals.map((goal, index) => (
-          <li key={index}>{goal}</li>
-        ))}
-      </ul>
+    <main className='flex flex-col items-center min-h-screen w-full max-w-lg mx-auto pt-16 pb-32 gap-8'>
+      <h1 className='text-4xl font-bold text-blue-500 text-center mb-4'>
+        Docker Goals
+      </h1>
+      <AddGoalForm />
+      <Goals />
     </main>
   );
 }
