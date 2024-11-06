@@ -4,7 +4,7 @@ import { Goal } from '../Utils/models';
 interface GoalsContextProps {
   goals: Goal[];
   addGoal: (goal: string) => Promise<void>;
-  updateGoal: (goal: string) => Promise<void>;
+  updateGoal: (goal: Goal) => Promise<void>;
   removeGoal: (id: number) => Promise<void>;
 }
 

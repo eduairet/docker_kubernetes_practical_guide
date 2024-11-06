@@ -17,10 +17,10 @@ export const postGoal = (text: string) => {
   });
 };
 
-export const putGoal = (text: string) => {
+export const putGoal = (goal: Goal) => {
   return fetchData(apiRoutes.updateGoal, {
     method: 'PUT',
-    body: { text },
+    body: { ...goal },
   });
 };
 

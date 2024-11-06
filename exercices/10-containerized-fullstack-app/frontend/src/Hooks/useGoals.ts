@@ -17,7 +17,7 @@ export default function useGoals() {
     else alert(response.message);
   };
 
-  const updateGoal = async (goal: string) => {
+  const updateGoal = async (goal: Goal) => {
     const response = await putGoal(goal);
     if (response.success) await fetchGoals();
     else alert(response.message);
