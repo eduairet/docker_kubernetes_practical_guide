@@ -1,17 +1,37 @@
 import { useState, useEffect } from 'react';
-import { getGoals } from '../Utils';
+import { postGoal, putGoal, deleteGoal, getGoals } from '../Utils';
+import { Goal } from '../Utils/models';
 
-//TODO: Implement API calls
 export default function useGoals() {
-  const [goals, setGoals] = useState<string[]>([]);
+  const [goals, setGoals] = useState<Goal[]>([]);
 
-  useEffect(() => {
-    setGoals(getGoals());
-  }, []);
-
-  const addGoal = (goal: string) => {
-    setGoals(prevGoals => [...prevGoals, goal]);
+  const fetchGoals = async () => {
+    const response = await getGoals();
+    if (response.success) setGoals(response.result as Goal[]);
+    else alert(response.message);
   };
 
-  return { goals, addGoal };
+  const addGoal = async (goal: string) => {
+    const response = await postGoal(goal);
+    if (response.success) await fetchGoals();
+    else alert(response.message);
+  };
+
+  const updateGoal = async (goal: string) => {
+    const response = await putGoal(goal);
+    if (response.success) await fetchGoals();
+    else alert(response.message);
+  };
+
+  const removeGoal = async (id: number) => {
+    const response = await deleteGoal(id);
+    if (response.success) await fetchGoals();
+    else alert(response.message);
+  };
+
+  useEffect(() => {
+    fetchGoals();
+  }, []);
+
+  return { goals, addGoal, updateGoal, removeGoal };
 }

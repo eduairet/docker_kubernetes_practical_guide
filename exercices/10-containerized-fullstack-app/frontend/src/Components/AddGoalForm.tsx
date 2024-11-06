@@ -5,9 +5,9 @@ export default function AddGoalForm() {
   const [newGoal, setNewGoal] = useState('');
   const { addGoal } = useContext(GoalsContext);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    addGoal(newGoal);
+    await addGoal(newGoal);
     setNewGoal('');
   };
 
