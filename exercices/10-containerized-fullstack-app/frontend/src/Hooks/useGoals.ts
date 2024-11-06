@@ -30,7 +30,15 @@ export default function useGoals() {
   };
 
   useEffect(() => {
-    fetchGoals();
+    try {
+      fetchGoals();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert('An unknown error occurred');
+      }
+    }
   }, []);
 
   return { goals, addGoal, updateGoal, removeGoal };
