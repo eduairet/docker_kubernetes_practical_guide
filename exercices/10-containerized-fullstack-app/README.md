@@ -14,18 +14,13 @@
   ```
 - Start the database
 
-  - Build the image
+  - Build the image with an argument to store the server password
     ```sh
-    docker build -t database:development ./database
+    docker build --build-arg 'MSSQL_SA_PASSWORD=<password>' -t database:development ./database
     ```
-  - Start the container
+  - Start the container and persist the database data
     ```sh
-    docker run -d --name database --network fullstack-app --rm -e 'SA_PASSWORD=<server_password>' -p 1433:1433 database:development
-    ```
-  - Persist the database data
-    ```sh
-    docker volume create database-data
-    docker run -d --name database --network fullstack-app --rm -e 'SA_PASSWORD=<server_password>' -v database-data:/var/opt/mssql -p 1433:1433 database:development
+    docker run -d --name database --network fullstack-app --rm -v database-data:/var/opt/mssql -p 1433:1433 database:development
     ```
 
 - Start the backend
