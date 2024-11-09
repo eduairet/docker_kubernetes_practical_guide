@@ -27,7 +27,7 @@
 
   - Build the image
     ```sh
-    docker build -t backend:development --build-arg 'MSQL_SERVER=<server>'  --build-arg 'MSQL_PASSWORD=<password>'  ./backend
+    docker build -t backend:development --build-arg 'MSQL_PASSWORD=<password>' ./backend
     ```
   - Start the container
     ```sh
@@ -45,4 +45,4 @@
     ```sh
     docker run --name frontend --network fullstack-app --rm -it -p 5173:5173 frontend:development
     ```
-  - Visit http://localhost:3000
+  - Visit http://localhost:5173

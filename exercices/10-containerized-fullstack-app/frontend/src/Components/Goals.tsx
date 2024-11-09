@@ -24,7 +24,7 @@ export default function Goals() {
       <h2 className='text-2xl font-bold text-center text-blue-500'>My Goals</h2>
       <div className='max-w-md w-full p-6 rounded-lg shadow bg-gray-800 border-gray-700'>
         <ul className='"max-w-md divide-y divide-gray-700'>
-          {goals.length > 1 ? (
+          {goals.length > 0 ? (
             goals.map(goal => (
               <GoalItem
                 key={`goal-${goal.id}`}

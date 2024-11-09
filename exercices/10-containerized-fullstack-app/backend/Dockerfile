@@ -7,7 +7,7 @@ EXPOSE 5035
 
 ARG MSQL_SERVER
 ARG MSQL_PASSWORD
-ENV ConnectionStrings__DefaultConnection="Server=${MSQL_SERVER},1433;Database=DockerDemoGoals;User Id=sa;Password=${MSQL_PASSWORD};TrustServerCertificate=true;MultipleActiveResultSets=true"
+ENV ConnectionStrings__DefaultConnection="Server=database,1433;Database=DockerDemoGoals;User Id=sa;Password=${MSQL_PASSWORD};TrustServerCertificate=true;MultipleActiveResultSets=true"
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
