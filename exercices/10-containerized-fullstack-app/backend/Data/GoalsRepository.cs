@@ -8,6 +8,7 @@ public class GoalsRepository(IConfiguration config) : IGoalsRepository
 {
     private readonly DataContext _data = new(config);
 
+
     private readonly IMapper _mapper = new MapperConfiguration(cfg =>
     {
         cfg.CreateMap<GoalAddDto, Goal>();
@@ -68,13 +69,4 @@ public class GoalsRepository(IConfiguration config) : IGoalsRepository
         }
         throw new Exception("Could not delete goal");
     }
-
-    /*TODO Implement logging
-    private void LogMessage(string message)
-    {
-        string logFilePath = $"../Logs/logs-{DateTime.Now:yyyyMMddHHmmss}.txt";
-        var writer = new StreamWriter(logFilePath, true);
-        writer.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {message}");
-        writer.Close();
-    }*/
 }

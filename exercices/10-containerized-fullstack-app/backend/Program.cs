@@ -1,10 +1,22 @@
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Serilog;
 using backend.Data;
 using backend.Utils;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Logging
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File(
+        path: "Logs/log-.txt",
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 7,
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+    )
+    .CreateLogger();
+builder.Host.UseSerilog();
 
 // Controllers & Routing
 builder.Services.AddControllers(

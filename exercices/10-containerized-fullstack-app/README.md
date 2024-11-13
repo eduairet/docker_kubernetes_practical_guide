@@ -29,9 +29,9 @@
     ```sh
     docker build -t backend:development --build-arg 'MSQL_PASSWORD=<password>' ./backend
     ```
-  - Start the container
+  - Start it with a bind mount to get the log files
     ```sh
-    docker run -d --name backend --network fullstack-app --rm -p 5035:8080 backend:development
+    docker run -d --name backend --network fullstack-app --rm -v "path/to/08-bind-mount:/app/Logs" -p 5035:8080 backend:development
     ```
   - Visit http://localhost:5035/swagger/index.html
 
