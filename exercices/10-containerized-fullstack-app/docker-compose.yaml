@@ -1,0 +1,52 @@
+networks:
+  fullstack-app:
+    driver: bridge
+
+services:
+  database:
+    env_file:
+      - .env
+    environment:
+      MSSQL_SA_PASSWORD: ${MSQL_PASSWORD}
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+      args:
+        MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+    volumes:
+      - database-data:/var/opt/mssql
+    networks:
+      - fullstack-app
+    ports:
+      - 1433:1433
+  backend:
+    env_file:
+      - .env
+    environment:
+      MSQL_PASSWORD: ${MSQL_PASSWORD}
+    build:
+      context: ./backend
+      args:
+        MSQL_PASSWORD: ${MSQL_PASSWORD}
+    volumes:
+      - ./backend/Logs:/app/Logs
+    networks:
+      - fullstack-app
+    ports:
+      - 5035:8080
+    depends_on:
+      - database
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend/src:/app/src
+    networks:
+      - fullstack-app
+    ports:
+      - 5173:5173
+    depends_on:
+      - database
+      - backend
+
+volumes:
+  database-data:
