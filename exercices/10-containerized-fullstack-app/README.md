@@ -31,7 +31,7 @@
     ```
   - Start it with a bind mount to get the log files
     ```sh
-    docker run -d --name backend --network fullstack-app --rm -v "path/to/08-bind-mount:/app/Logs" -p 5035:8080 backend:development
+    docker run -d --name backend --network fullstack-app --rm -v "path/to/logs/dir:/app/Logs" -p 5035:8080 backend:development
     ```
   - Visit http://localhost:5035/swagger/index.html
 
@@ -41,8 +41,8 @@
     ```sh
     docker build -t frontend:development ./frontend
     ```
-  - Start the container
+  - Start the container with a bind mount to allow hot reloading
     ```sh
-    docker run --name frontend --network fullstack-app --rm -it -p 5173:5173 frontend:development
+    docker run --name frontend --network fullstack-app --rm -v "path/to/app/src:/app/src" -it -p 5173:5173 frontend:development
     ```
   - Visit http://localhost:5173

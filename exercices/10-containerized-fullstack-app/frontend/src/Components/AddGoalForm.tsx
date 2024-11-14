@@ -1,9 +1,10 @@
 import { useState, useContext } from 'react';
 import { GoalsContext } from '../Store/GoalsContext';
+import Spinner from './Spinner';
 
 export default function AddGoalForm() {
   const [newGoal, setNewGoal] = useState('');
-  const { addGoal } = useContext(GoalsContext);
+  const { addGoal, isGoalsLoading } = useContext(GoalsContext);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,9 +33,10 @@ export default function AddGoalForm() {
       </div>
       <button
         type='submit'
-        className='text-white focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800'
+        className='flex items-center justify-center text-white focus:ring-4 focus:outline-none font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 transition-colors disabled:opacity-50 min-w-36 min-h-11'
+        disabled={isGoalsLoading}
       >
-        Add Goal
+        {isGoalsLoading ? <Spinner size='sm' color='white' /> : 'Add Goal'}
       </button>
     </form>
   );

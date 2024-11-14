@@ -7,10 +7,10 @@ interface IProps {
 }
 
 export default function GoalsProvider({ children }: IProps) {
-  const { goals, addGoal, updateGoal, removeGoal } = useGoals();
+  const { goals, isGoalsLoading, addGoal, updateGoal, removeGoal } = useGoals();
 
   return (
-    <GoalsContext.Provider value={{ goals, addGoal, updateGoal, removeGoal }}>
+    <GoalsContext.Provider value={{ goals, isGoalsLoading, addGoal, updateGoal, removeGoal }}>
       {children}
     </GoalsContext.Provider>
   );

@@ -27,7 +27,7 @@ export default function GoalItem({ goal, isEditing, setIsEditing }: IProps) {
   };
 
   return (
-    <li className='goal-item flex gap-3 pb-3 sm:py-4 justify-between items-center'>
+    <li className='goal-item flex gap-3 pb-3 sm:py-4 justify-between items-center w-full'>
       {isEditing ? (
         <input
           type='text'

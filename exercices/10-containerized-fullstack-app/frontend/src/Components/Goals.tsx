@@ -1,10 +1,11 @@
 import { useState, useContext, useEffect } from 'react';
 import { GoalsContext } from '../Store/GoalsContext';
 import GoalItem from './GoalItem';
+import Spinner from './Spinner';
 
 export default function Goals() {
   const [isEditing, setIsEditing] = useState<number | null>(null);
-  const { goals } = useContext(GoalsContext);
+  const { goals, isGoalsLoading } = useContext(GoalsContext);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -23,7 +24,7 @@ export default function Goals() {
     <section className='flex flex-col gap-4 w-full items-center justify-center'>
       <h2 className='text-2xl font-bold text-center text-blue-500'>My Goals</h2>
       <div className='max-w-md w-full p-6 rounded-lg shadow bg-gray-800 border-gray-700'>
-        <ul className='"max-w-md divide-y divide-gray-700'>
+        <ul className='max-w-md divide-y divide-gray-700 flex flex-col items-center justify-center'>
           {goals.length > 0 ? (
             goals.map(goal => (
               <GoalItem
@@ -33,6 +34,8 @@ export default function Goals() {
                 setIsEditing={setIsEditing}
               />
             ))
+          ) : goals.length == 0 && isGoalsLoading ? (
+            <Spinner />
           ) : (
             <p className='text-gray-500 text-center'>No goals yet</p>
           )}
