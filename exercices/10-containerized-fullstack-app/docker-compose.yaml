@@ -44,8 +44,9 @@ services:
       - fullstack-app
     ports:
       - 5173:5173
+    stdin_open: true
+    tty: true
     depends_on:
-      - database
       - backend
 
 volumes:

@@ -15,6 +15,7 @@ services:
       context: .
       dockerfile: Dockerfile-redis # If the Dockerfile is named differently
     image: 'redis'
+    docker_container_name: 'redis-server' # Name of the container if you want to give it a name
     environment:
       - ACCEPT_EULA=Y
     env_file:
@@ -25,6 +26,8 @@ services:
       - my-volume:/app
     ports:
       - '4001:8081'
+    stdin_open: true # Keep STDIN open even if not attached
+    tty: true # Allocate a pseudo-TTY
     depends_on:
       - redis-server
 
@@ -38,3 +41,6 @@ volumes:
   networks:
     my-network:
   ```
+
+- To rebuild the images, you can use `docker-compose up --build`.
+  - If you want just to rebuild your image, you can use `docker-compose build`.
