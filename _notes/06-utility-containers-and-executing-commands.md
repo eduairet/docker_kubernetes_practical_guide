@@ -8,8 +8,21 @@
   docker exec -it <container_id> cargo new my-project
   ```
 - To avoid running a command that could files files other than the ones you want, you can create a Dockerfile and add an `ENTRYPOINT` to the command you want to run.
+
   ```Dockerfile
   FROM rust
   WORKDIR /app
   ENTRYPOINT ["cargo"]
   ```
+
+- To simplify the process of running a command in a container, you can create a docker-compose file.
+  ```yaml
+  services:
+    cargo:
+      build: ./
+      stdin_open: true
+      tty: true
+      volumes:
+        - ./:/app
+  ```
+- Then you can run the command with `docker-compose run --rm cargo build`
