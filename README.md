@@ -9,6 +9,7 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
 3. [Managing Data & Working with Volumes](./_notes/03-managing-data-and-working-with-volumes.md)
 4. [Networking: (Cross-)Container Communication](./_notes/04-cross-container-communication.md)
 5. [Docker Compose: Elegant Multi-Container Orchestration](./_notes/05-docker-compose.md)
+6. [Working with "Utility Containers" & Executing Commands In Containers](./_notes/06-utility-containers-and-executing-commands.md)
 
 ## Exercises
 
@@ -23,3 +24,4 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
 8. [Bind Mount](./exercices/08-bind-mount/Dockerfile)
 9. [Connecting to External Sources (APIs, DBs, Other Containers)](./exercices/09-external-connection/Dockerfile)
 10. [Containerized Full Stack App](./exercices/10-containerized-fullstack-app/README.md)
+11. [Utility Container](./exercices/11-utility-container/Dockerfile)

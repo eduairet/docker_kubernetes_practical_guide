@@ -64,3 +64,6 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+
+# Rust
+/target
