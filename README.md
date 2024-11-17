@@ -25,3 +25,4 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
 9. [Connecting to External Sources (APIs, DBs, Other Containers)](./exercices/09-external-connection/Dockerfile)
 10. [Containerized Full Stack App](./exercices/10-containerized-fullstack-app/README.md)
 11. [Utility Container](./exercices/11-utility-container/Dockerfile)
+12. [Laravel & PHP Dockerized Project](./exercices/12-laravel-dockerized-project/README.md)
