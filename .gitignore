@@ -28,7 +28,10 @@ dist-ssr
 *.sw?
 
 # Environment
+env/
 .env
+*.env
+.env*
 
 # .NET
 *.swp
