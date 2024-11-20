@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine
+FROM php:8.1-fpm-alpine
 # Pretty common route on PHP web servers
 WORKDIR /var/www/html
 # Install PHP extensions

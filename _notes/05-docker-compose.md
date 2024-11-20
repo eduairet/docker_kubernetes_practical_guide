@@ -43,4 +43,12 @@ volumes:
   ```
 
 - To rebuild the images, you can use `docker-compose up --build`.
+
   - If you want just to rebuild your image, you can use `docker-compose build`.
+
+- To run just one or specific services, you can use `docker-compose up <service-name>`.
+
+  ```bash
+  docker-compose up node-app
+  docker-compose up node-app redis-server
+  ```
