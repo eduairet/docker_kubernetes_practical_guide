@@ -1,6 +1,9 @@
 services:
   server:
-    image: 'nginx:stable-alpine'
+    #image: 'nginx:stable-alpine'
+    build:
+      context: . # This also defines the path where the dockerfile is located, that's why we need to use the dot
+      dockerfile: dockerfiles/nginx.dockerfile
     ports:
       - '8000:80'
     volumes:
@@ -11,8 +14,8 @@ services:
       - mysql
   php:
     build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile
+      context: .
+      dockerfile: dockerfiles/php.dockerfile
     volumes:
       - ./src:/var/www/html:delegated # Delegated means that the container will have the same files as the host machine and it's better for performance
       # We're not adding ports here because nginx will be the one that will handle the requests not our local machine, so we'll need the port specified in the nginx configuration
@@ -22,9 +25,20 @@ services:
       - ./env/mysql.env
   composer: # To create a laravel project run the command: docker-compose run --rm composer create-project --prefer-dist laravel/laravel:^8.0 .
     build:
-      context: ./dockerfiles
-      dockerfile: composer.dockerfile
+      context: .
+      dockerfile: dockerfiles/composer.dockerfile
     volumes:
       - ./src:/var/www/html
-  #artisan:
-  #npm:
+  artisan:
+    build:
+      context: .
+      dockerfile: dockerfiles/php.dockerfile
+    entrypoint: ['php', '/var/www/html/artisan'] # This will allow us to run the artisan commands from the container but we don't need to add it in the php.dockerfile
+    volumes:
+      - ./src:/var/www/html
+  npm:
+    image: 'node:14'
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    volumes:
+      - ./src:/var/www/html
