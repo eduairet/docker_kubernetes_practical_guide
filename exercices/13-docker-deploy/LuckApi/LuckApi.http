@@ -1,0 +1,6 @@
+@LuckApi_HostAddress = http://localhost:5207
+
+GET {{LuckApi_HostAddress}}/luck/
+Accept: application/json
+
+###
