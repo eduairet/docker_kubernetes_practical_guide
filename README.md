@@ -27,3 +27,5 @@ Study notes and exercises from Docker &amp; Kubernetes: The Practical Guide
 10. [Containerized Full Stack App](./exercices/10-containerized-fullstack-app/README.md)
 11. [Utility Container](./exercices/11-utility-container/Dockerfile)
 12. [Laravel & PHP Dockerized Project](./exercices/12-laravel-dockerized-project/README.md)
+13. [Deployment Project](./exercices/13-deployment/README.md)
+
