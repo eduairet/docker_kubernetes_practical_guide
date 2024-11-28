@@ -24,3 +24,10 @@
   ```bash
   docker push <docker-hub-username>/eat-dotnet-example-01
   ```
+  - Example at [hub.docker.com/repository/docker/eduairet/eat-dotnet-example-01/general](https://hub.docker.com/repository/docker/eduairet/eat-dotnet-example-01/general)
+- And then we can run it in our AWS instance.
+  ```bash
+  docker run -d --rm -p 80:80 <docker-hub-username>/eat-dotnet-example-01
+  ```
+  - Make sure the security group allows traffic on port 80.
+  - Visit the instance's public IP to see the API running `http://<public-aws-api>/index.html`
