@@ -1,11 +1,25 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0@sha256:35792ea4ad1db051981f62b313f1be3b46b1f45cadbaa3c288cd0d3056eefb83 AS build-env
-WORKDIR /App
-EXPOSE 7025
-EXPOSE 5207
-COPY . ./
-RUN dotnet restore
-RUN dotnet publish -c Release -o out
-FROM mcr.microsoft.com/dotnet/aspnet:8.0@sha256:6c4df091e4e531bb93bdbfe7e7f0998e7ced344f54426b7e874116a3dc3233ff
-WORKDIR /App
-COPY --from=build-env /App/out .
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY LuckApi.csproj .
+RUN dotnet restore LuckApi.csproj
+COPY . .
+RUN dotnet build LuckApi.csproj -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish LuckApi.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+ENV ASPNETCORE_HTTP_PORTS=80
+ENV ASPNETCORE_URLS=http://+:80
+
 ENTRYPOINT ["dotnet", "LuckApi.dll"]
