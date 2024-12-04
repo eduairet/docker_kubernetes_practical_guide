@@ -29,3 +29,27 @@
     sudo service docker start
     sudo usermod -a -G docker ec2-user
     ```
+
+## Multi-stage builds
+
+- Multi-stage builds allow you to use multiple FROM statements in a Dockerfile.
+- This is useful to separate the build environment from the runtime environment.
+- This way you can have a smaller image for the runtime environment.
+- React example:
+  ```dockerfile
+  FROM node:14-alpine as build
+  WORKDIR /app
+  COPY package.json .
+  RUN npm install
+  COPY . .
+  RUN npm run build
+  FROM nginx:stable-alpine
+  COPY --from=build /app/build /usr/share/nginx/html
+  # --from=build means that we're copying from the build stage.
+  EXPOSE 80 # Default port for nginx
+  CMD ["nginx", "-g", "daemon off;"]
+  ```
+- We can now run specific stages with the `--target` flag.
+  ```bash
+  docker build --target build -t my-react-app .
+  ```
