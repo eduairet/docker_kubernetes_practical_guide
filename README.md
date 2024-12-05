@@ -11,6 +11,7 @@ Study notes and exercises from **Docker &amp; Kubernetes: The Practical Guide**
 5. [Docker Compose: Elegant Multi-Container Orchestration](./_notes/05-docker-compose.md)
 6. [Working with "Utility Containers" & Executing Commands In Containers](./_notes/06-utility-containers-and-executing-commands.md)
 7. [Deploying Docker Containers ON AWS](./_notes/07-deploying-docker-containers.md)
+8. [Getting Started with Kubernetes](./_notes/08-getting-started-with-kubernetes.md)
 
 ## Exercises
 
