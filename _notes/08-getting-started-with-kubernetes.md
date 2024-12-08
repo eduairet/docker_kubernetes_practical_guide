@@ -47,7 +47,7 @@
   - Scale Pods up or down based on the traffic.
   - Utilize your provider resources to apply your configuration / goals.
 
-## Kubernetes Core Concepts
+## Kubernetes Core Concepts
 
 - **Cluster:** A set of Nodes that run containerized applications (`Worker Nodes`) or control the other Nodes (`Master Node`).
 - **Node:** A machine (physical or virtual) with certain hardware capacity that makes them capable of hosting Pods and communicating with the cluster.

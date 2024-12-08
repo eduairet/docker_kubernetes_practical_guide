@@ -12,6 +12,7 @@ Study notes and exercises from **Docker &amp; Kubernetes: The Practical Guide**
 6. [Working with "Utility Containers" & Executing Commands In Containers](./_notes/06-utility-containers-and-executing-commands.md)
 7. [Deploying Docker Containers ON AWS](./_notes/07-deploying-docker-containers.md)
 8. [Getting Started with Kubernetes](./_notes/08-getting-started-with-kubernetes.md)
+9. [Kubernetes in Action - Diving into the Core Concepts](./_notes/09-kubernetes-in-action.md)
 
 ## Exercises
 
