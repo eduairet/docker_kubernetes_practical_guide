@@ -30,4 +30,4 @@ Study notes and exercises from **Docker &amp; Kubernetes: The Practical Guide**
 11. [Utility Container](./exercices/11-utility-container/Dockerfile)
 12. [Laravel & PHP Dockerized Project](./exercices/12-laravel-dockerized-project/README.md)
 13. [Deploying a .NET API](./exercices/13-docker-deploy/README.md)
-
+14. [First Kubernetes Deployment](./exercices/14-first-kubernetes-deployment/README.md)

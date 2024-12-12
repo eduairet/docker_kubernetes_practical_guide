@@ -69,7 +69,7 @@ msbuild.err
 msbuild.wrn
 
 # Rust
-/target
+target/
 
 # Laravel
 /vendor/
