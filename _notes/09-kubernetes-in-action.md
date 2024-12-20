@@ -75,3 +75,40 @@
   - It will create and manage the Pods for you
   - It will monitor the Pods and re-create them if they fail
   - It will scale the Pods up or down based on the load
+- The service object is used to expose pods to other pods or for the outside world
+  - Pods have a unique IP address within the cluster and it changes when they are re-created
+    - For example, if you have a node.js app and it crashes the Pod will be re-created with a new IP address, so you'll see the pod down until it's re-created, this will show a restart increase.
+      - Every restart can be checked at the dashboard events log
+  - Services group Pods together and give them a stable IP address
+- Scaling your application
+  - Kubernetes has a command to scale your application
+    ```bash
+    kubectl scale deployment/<deployment-name> --replicas=3
+    ```
+    - A replica is a copy of a Pod, adding more pods will increase the load capacity, for example, if a pod is down the service will redirect the request to another pod
+- Updating your application
+  - To update your application you can change the image of the deployment
+    ```bash
+    kubectl set image deployment/<deployment-name> <container-name>=<new-image>
+    ```
+    - The deployment will create a new Pod with the new image and then delete the old Pod
+    - The service will redirect the requests to the new Pod
+- There will be occasions where there's a problem when trying to update the deployment, usually when we have several replicas and some of them have the `ImagePullBackOff` status
+  - This means that the Pod can't pull the image from the registry
+  - To fix this you can roll back the deployment
+    ```bash
+    kubectl rollout undo deployment/<deployment-name>
+    ```
+  - We can even use the history command to see the changes made to the deployment
+    ```bash
+    kubectl rollout history deployment/<deployment-name>
+    ```
+    - This will show the revision number, the date, and the status of the deployment
+    - For more information about a specific revision
+      ```bash
+      kubectl rollout history deployment/<deployment-name> --revision=1
+      ```
+    - And we can even roll back to a specific revision
+      ```bash
+      kubectl rollout undo deployment/<deployment-name> --to-revision=1
+      ```
