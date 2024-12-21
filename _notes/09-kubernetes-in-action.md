@@ -112,3 +112,39 @@
       ```bash
       kubectl rollout undo deployment/<deployment-name> --to-revision=1
       ```
+
+## Creating a Deployment Configuration File
+
+- The name is up to you, but it's a good practice to name it `deployment.yaml`
+- The file will have the following structure
+  ```yaml
+  apiVersion: apps/v1 # Check the Kubernetes documentation for the latest version
+  kind: Deployment # The kind of object we're creating
+  metadata:
+    name: <deployment-name> # The name of the deployment
+    labels:
+      app: <app-name> # The label of the deployment for further reference
+  spec:
+    replicas: 3
+    selector:
+      matchLabels:
+        app: <app-name>
+    template:
+      metadata:
+        labels:
+          app: <app-name>
+      spec:
+        containers:
+          - name: <container-name>
+            image: <image-name>
+            ports:
+              - containerPort: 8080
+  ```
+- To run the configuration file
+  ```bash
+  kubectl apply -f deployment.yaml
+  ```
+  - For multiple files
+    ```bash
+    kubectl apply -f deployment1.yaml -f service.yaml
+    ```

@@ -53,6 +53,13 @@
   ```bash
   minikube dashboard
   ```
+- We can update our deployment to use the service instead of the deployment
+  ```bash
+  # Firstly update our image in Docker Hub
+  docker push <username>/kub-first-app:2 # Image should be changed to successfully update the deployment
+  # Then update the deployment to pull the updated image
+  kubectl set image deployment/kub-first-app kub-first-app=<username>/kub-first-app:2
+  ```
 
 # Creating a Service
 
@@ -95,10 +102,4 @@
 
   - You can check the service using the tunneled URL shown in the terminal
 
-- We can update our deployment to use the service instead of the deployment
-  ```bash
-  # Firstly update our image in Docker Hub
-  docker push <username>/kub-first-app:2 # Image should be changed to successfully update the deployment
-  # Then update the deployment to pull the updated image
-  kubectl set image deployment/kub-first-app kub-first-app=<username>/kub-first-app:2
-  ```
+## 
