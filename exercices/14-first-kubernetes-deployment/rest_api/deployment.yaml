@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+# Every pod needs the metadata to be identified
+metadata:
+  name: rest-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rest-api # This is the label that will be used to match the pods
+      tier: backend # Tier has no special meaning, it is just a label
+  template:
+    # No to add the type of the object since it is already defined in the parent object
+    metadata:
+      labels:
+        app: rest-api # Same label as the selector
+        tier: backend # Also the same label as the selector
+    spec:
+      containers:
+        - name: rest-api-node
+          image: eduairet/kub-first-app:latest
+          ports:
+            - containerPort: 8080
