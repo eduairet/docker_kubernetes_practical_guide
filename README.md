@@ -13,6 +13,7 @@ Study notes and exercises from **Docker &amp; Kubernetes: The Practical Guide**
 7. [Deploying Docker Containers ON AWS](./_notes/07-deploying-docker-containers.md)
 8. [Getting Started with Kubernetes](./_notes/08-getting-started-with-kubernetes.md)
 9. [Kubernetes in Action - Diving into the Core Concepts](./_notes/09-kubernetes-in-action.md)
+10. [Managing Data & Volumes with Kubernetes](./_notes/10-managing-data-and-volumes-with-kubernetes.md)
 
 ## Exercises
 
@@ -31,3 +32,4 @@ Study notes and exercises from **Docker &amp; Kubernetes: The Practical Guide**
 12. [Laravel & PHP Dockerized Project](./exercices/12-laravel-dockerized-project/README.md)
 13. [Deploying a .NET API](./exercices/13-docker-deploy/README.md)
 14. [First Kubernetes Deployment](./exercices/14-first-kubernetes-deployment/README.md)
+15. [Kubernetes Volume](./exercices/15-kubernetes-volume/README.md)
