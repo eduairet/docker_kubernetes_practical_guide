@@ -21,3 +21,9 @@ spec:
           image: eduairet/kub-first-app:latest
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 10
+            initialDelaySeconds: 5

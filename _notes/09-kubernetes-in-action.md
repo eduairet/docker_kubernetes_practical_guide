@@ -124,11 +124,20 @@
     name: <deployment-name> # The name of the deployment
     labels:
       app: <app-name> # The label of the deployment for further reference
+      # You can use the group label to group deployments and manage them together
+      # group: <group-name>
+      # With this group label, you can for example delete all deployments with the same group label at once
+      # kubectl delete deployments,services -l group=<group-name>
   spec:
     replicas: 3
     selector:
       matchLabels:
         app: <app-name>
+      # Alternatively you can use matchExpressions if we need to match multiple labels
+      # matchExpressions:
+      #   - key: app # The key of the label
+      #     operator: In # Can be NotIn, Exists, DoesNotExist
+      #     values: [<app-name>, <app-name2>] # Can be a list of values
     template:
       metadata:
         labels:
@@ -137,8 +146,15 @@
         containers:
           - name: <container-name>
             image: <image-name>
+            imagePullPolicy: Always # This will always pull the image from the registry
             ports:
               - containerPort: 8080
+            # livenessProbe: # This is a health check that will be used to know if the pod is healthy
+            #   httpGet:
+            #     path: /
+            #     port: 8080
+            #   periodSeconds: 10
+            #   initialDelaySeconds: 5
   ```
 - To run the configuration file
   ```bash
@@ -148,3 +164,22 @@
     ```bash
     kubectl apply -f deployment1.yaml -f service.yaml
     ```
+- If you need to update the deployment you can edit the file and run the `kubectl apply` command again
+- To delete the deployment you can run the name of the deployment or the file
+  ```bash
+  kubectl delete deployment <deployment-name>
+  kubectl delete -f deployment.yaml
+  ```
+- If you need to add different configurations you can create extra files like `service.yaml` or add them to the same file separated by `---`
+
+  ```yaml
+  apiVersion: v1
+  kind: Service
+  # ...
+  ---
+  apiVersion: apps/v1
+  kind: Deployment
+  # ...
+  ```
+
+  - It's a good practice to declare the service first if you add it to the same file
