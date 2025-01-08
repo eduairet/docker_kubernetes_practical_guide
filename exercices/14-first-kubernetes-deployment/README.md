@@ -102,4 +102,13 @@
 
   - You can check the service using the tunneled URL shown in the terminal
 
-## 
+## Using Config Files
+
+- Run the deployment using the config file
+  ```bash
+  kubectl apply -f deployment.yaml
+  ```
+- Run the service using the config file
+  ```bash
+  kubectl apply -f service.yaml
+  ```
