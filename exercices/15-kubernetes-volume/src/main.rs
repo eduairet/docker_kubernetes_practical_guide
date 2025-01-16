@@ -44,10 +44,13 @@ async fn post_story(Json(payload): Json<StoryInput>) -> Json<serde_json::Value> 
 
 #[tokio::main]
 async fn main() {
+    const PORT: u16 = 8080;
     let app = Router::new()
         .route("/story", get(get_story).post(post_story));
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let addr = SocketAddr::from(([0, 0, 0, 0], PORT));
+    println!("Listening API on port {}", PORT);
+
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
         .await
