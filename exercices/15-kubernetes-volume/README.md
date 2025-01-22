@@ -28,6 +28,14 @@
   ```bash
   minikube start --driver=docker
   ```
+- Create the persistent volume
+  ```bash
+  kubectl apply -f=host-pv.yaml
+  ```
+- Create the persistent volume claim
+  ```bash
+  kubectl apply -f=host-pvc.yaml
+  ```
 - Run the deployment files
   ```bash
   kubectl apply -f=deployment.yaml -f=service.yaml
