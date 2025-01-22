@@ -149,3 +149,28 @@
           - name: MY_ENV_VAR
             value: my-value
   ```
+
+- If we need to share the environment variables between the pods we can use a `ConfigMap` in a different file
+
+  ```yaml
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: data-store-env
+  data:
+    folder: story
+  ```
+
+  ```yaml
+  # . . .
+  spec:
+    containers:
+      - name: my-container
+        image: my-image
+        env:
+          - name: MY_ENV_VAR
+            valueFrom:
+              configMapKeyRef:
+                name: data-store-env
+                key: folder
+  ```
