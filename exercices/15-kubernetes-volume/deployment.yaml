@@ -15,6 +15,9 @@ spec:
       containers:
         - name: story
           image: eduairet/kubernetes-volume
+          env:
+            - name: STORY_FOLDER
+              value: story
           volumeMounts:
             - mountPath: /app/story
               name: story-volume

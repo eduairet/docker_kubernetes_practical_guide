@@ -133,3 +133,19 @@
   ```bash
   kubectl get storageclass
   ```
+
+## Environment Variables
+
+- Environment variables are a way to pass configuration to your application
+- You can use environment variables to pass configuration to your application
+
+  ```yaml
+  # . . .
+  spec:
+    containers:
+      - name: my-container
+        image: my-image
+        env:
+          - name: MY_ENV_VAR
+            value: my-value
+  ```
