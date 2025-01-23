@@ -1,0 +1,13 @@
+services:
+  auth:
+    build: ./auth_api
+  users:
+    build: ./users_api
+    ports:
+      - '8080:8080'
+  tasks:
+    build: ./tasks_api
+    ports:
+      - '8000:8000'
+    environment:
+      TASKS_FOLDER: tasks
