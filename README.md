@@ -34,3 +34,4 @@ Study notes and exercises from **Docker &amp; Kubernetes: The Practical Guide**
 13. [Deploying a .NET API](./exercices/13-docker-deploy/README.md)
 14. [First Kubernetes Deployment](./exercices/14-first-kubernetes-deployment/README.md)
 15. [Kubernetes Volume](./exercices/15-kubernetes-volume/README.md)
+16. [Kubernetes Networking](./exercices/16-networking/README.md)
