@@ -1,4 +1,10 @@
-use axum::{extract::Json, http::StatusCode, response::IntoResponse, routing::post, Router};
+use axum::{
+    extract::Json,
+    http::{status, StatusCode},
+    response::IntoResponse,
+    routing::post,
+    Router,
+};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
@@ -14,7 +20,7 @@ struct MessageResponse {
     message: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 struct TokenResponse {
     token: String,
 }
@@ -66,13 +72,19 @@ async fn login(Json(payload): Json<AuthRequest>, client: Client) -> impl IntoRes
     let token_url = format!("http://auth/token/{}/{}", hashed_password, payload.password);
     match client.get(&token_url).send().await {
         Ok(response) => {
-            if response.status().is_success() {
+            let status = response.status();
+            if status.is_success() {
                 if let Ok(token) = response.json::<TokenResponse>().await {
-                    return (StatusCode::OK, Json(token)).into_response();
+                    return (
+                        StatusCode::OK,
+                        Json(MessageResponse {
+                            message: token.token,
+                        }),
+                    );
                 }
             }
             (
-                response.status(),
+                status,
                 Json(MessageResponse {
                     message: "Logging in failed!".into(),
                 }),
@@ -90,14 +102,23 @@ async fn login(Json(payload): Json<AuthRequest>, client: Client) -> impl IntoRes
 #[tokio::main]
 async fn main() {
     let client = Client::new();
-
     let app = Router::new()
-        .route("/signup", post(signup))
-        .route("/login", post(login))
-        .layer(axum::AddExtensionLayer::new(client));
+        .route(
+            "/signup",
+            post({
+                let client = client.clone();
+                move |payload| signup(payload, client.clone())
+            }),
+        )
+        .route(
+            "/login",
+            post({
+                let client = client.clone();
+                move |payload| login(payload, client.clone())
+            }),
+        );
 
     let addr = SocketAddr::from(([0, 0, 0, 0], 8080));
-    println!("Server running on {}", addr);
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
         .await
