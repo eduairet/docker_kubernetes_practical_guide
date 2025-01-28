@@ -6,7 +6,7 @@
 - [Tasks API](./tasks_api/)
 - [Users API](./users_api/)
 
-## Building the containers
+## Docker
 
 ### Auth API
 
@@ -45,3 +45,49 @@ docker run -d -p 8080:8080 --name users-api --rm users-api
 docker-compose up -d
 docker-compose down
 ```
+
+### Push to Docker Hub
+
+```bash
+docker build -t <username>/auth-api:latest ./auth_api
+docker push <username>/auth-api:latest
+
+docker build -t <username>/tasks-api:latest ./tasks_api
+docker push <username>/tasks-api:latest
+
+docker build -t <username>/users-api:latest ./users_api
+docker push <username>/users-api:latest
+```
+
+## Kubernetes
+
+- Create the deployments and services
+
+  ```bash
+  kubectl apply -f=./kubernetes/auth-deployment.yaml -f=./kubernetes/auth-service.yaml 
+  kubectl apply -f=./kubernetes/users-deployment.yaml -f=./kubernetes/users-service.yaml
+  kubectl apply -f=./kubernetes/tasks-deployment.yaml -f=./kubernetes/tasks-service.yaml 
+  ```
+
+- Get the services' IPs
+
+  ```bash
+  kubectl get services
+  ```
+
+- Access the services
+
+  ```bash
+  minikube service auth-service
+  minikube service tasks-service
+  minikube service users-service
+  ```
+
+- Terminate all services, deployments, and pods
+
+  ```bash
+  kubectl delete services --all
+  kubectl delete deployments --all
+  kubectl delete pvc --all
+  kubectl delete pods --all
+  ```

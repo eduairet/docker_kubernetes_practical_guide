@@ -5,7 +5,7 @@ use axum::{
 };
 use reqwest;
 use serde::{Deserialize, Serialize};
-use std::{env, fs, path::PathBuf};
+use std::{fs, path::PathBuf, sync::OnceLock};
 use tokio;
 
 #[derive(Serialize, Deserialize)]
@@ -20,6 +20,10 @@ struct ResponseMessage {
     tasks: Option<Vec<Task>>,
     created_task: Option<Task>,
 }
+
+static AUTH_ADDRESS: OnceLock<String> = OnceLock::new();
+static TASKS_FOLDER: OnceLock<String> = OnceLock::new();
+static FILE_PATH: OnceLock<PathBuf> = OnceLock::new();
 
 async fn extract_and_verify_token(
     headers: &HeaderMap,
@@ -49,7 +53,11 @@ async fn extract_and_verify_token(
 
     let client = reqwest::Client::new();
     let response = client
-        .get(format!("http://auth/verify-token/{}", token))
+        .get(format!(
+            "http://{}/verify-token/{}",
+            AUTH_ADDRESS.get().unwrap(),
+            token
+        ))
         .send()
         .await
         .map_err(|_| {
@@ -71,10 +79,7 @@ async fn get_tasks(
 ) -> Result<Json<ResponseMessage>, (StatusCode, Json<ResponseMessage>)> {
     let _uid = extract_and_verify_token(&headers).await?;
 
-    let tasks_folder = env::var("TASKS_FOLDER").unwrap_or_else(|_| "tasks".to_string());
-    let file_path = PathBuf::from(&tasks_folder).join("tasks.txt");
-
-    let content = fs::read_to_string(&file_path).map_err(|_| {
+    let content = fs::read_to_string(FILE_PATH.get().unwrap()).map_err(|_| {
         (
             StatusCode::INTERNAL_SERVER_ERROR,
             Json(ResponseMessage {
@@ -104,9 +109,6 @@ async fn create_task(
 ) -> Result<(StatusCode, Json<ResponseMessage>), (StatusCode, Json<ResponseMessage>)> {
     let _uid = extract_and_verify_token(&headers).await?;
 
-    let tasks_folder = env::var("TASKS_FOLDER").unwrap_or_else(|_| "tasks".to_string());
-    let file_path = PathBuf::from(&tasks_folder).join("tasks.txt");
-
     let task_json = serde_json::to_string(&task).map_err(|_| {
         (
             StatusCode::INTERNAL_SERVER_ERROR,
@@ -121,7 +123,7 @@ async fn create_task(
     fs::OpenOptions::new()
         .create(true)
         .append(true)
-        .open(&file_path)
+        .open(FILE_PATH.get().unwrap())
         .and_then(|mut file| {
             std::io::Write::write_all(&mut file, format!("{}TASK_SPLIT", task_json).as_bytes())
         })
@@ -148,6 +150,15 @@ async fn create_task(
 
 #[tokio::main]
 async fn main() {
+    let auth_address = std::env::var("AUTH_ADDRESS").expect("AUTH_ADDRESS not set");
+    AUTH_ADDRESS.set(auth_address.clone()).unwrap();
+
+    let tasks_folder = std::env::var("TASKS_FOLDER").expect("TASKS_FOLDER not set");
+    TASKS_FOLDER.set(tasks_folder.clone()).unwrap();
+    FILE_PATH
+        .set(PathBuf::from(format!("{}/tasks.txt", tasks_folder)))
+        .unwrap();
+
     let app = Router::new()
         .route("/tasks", get(get_tasks))
         .route("/tasks", post(create_task));

@@ -1,13 +1,7 @@
-use axum::{
-    extract::Json,
-    http::{StatusCode},
-    response::IntoResponse,
-    routing::post,
-    Router,
-};
+use axum::{extract::Json, http::StatusCode, response::IntoResponse, routing::post, Router};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
-use std::net::SocketAddr;
+use std::{net::SocketAddr, sync::OnceLock};
 
 #[derive(Deserialize)]
 struct AuthRequest {
@@ -25,6 +19,8 @@ struct TokenResponse {
     token: String,
 }
 
+static AUTH_ADDRESS: OnceLock<String> = OnceLock::new();
+
 async fn signup(Json(payload): Json<AuthRequest>, client: Client) -> impl IntoResponse {
     if payload.email.trim().is_empty() || payload.password.trim().is_empty() {
         return (
@@ -35,7 +31,11 @@ async fn signup(Json(payload): Json<AuthRequest>, client: Client) -> impl IntoRe
         );
     }
 
-    let hashed_pw_url = format!("http://auth/hashed-password/{}", payload.password);
+    let hashed_pw_url = format!(
+        "http://{}/hashed-password/{}",
+        AUTH_ADDRESS.get().unwrap(),
+        payload.password
+    );
     match client.get(&hashed_pw_url).send().await {
         Ok(response) => {
             println!("{:?}, {}", response, payload.email);
@@ -69,7 +69,12 @@ async fn login(Json(payload): Json<AuthRequest>, client: Client) -> impl IntoRes
     }
 
     let hashed_password = format!("{}_hash", payload.password);
-    let token_url = format!("http://auth/token/{}/{}", hashed_password, payload.password);
+    let token_url = format!(
+        "http://{}/token/{}/{}",
+        AUTH_ADDRESS.get().unwrap(),
+        hashed_password,
+        payload.password
+    );
     match client.get(&token_url).send().await {
         Ok(response) => {
             let status = response.status();
@@ -101,6 +106,9 @@ async fn login(Json(payload): Json<AuthRequest>, client: Client) -> impl IntoRes
 
 #[tokio::main]
 async fn main() {
+    let auth_address = std::env::var("AUTH_ADDRESS").expect("AUTH_ADDRESS not set");
+    AUTH_ADDRESS.set(auth_address.clone()).unwrap();
+
     let client = Client::new();
     let app = Router::new()
         .route(

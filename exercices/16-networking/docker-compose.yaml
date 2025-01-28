@@ -5,11 +5,14 @@ services:
       - '80:80'
   users:
     build: ./users_api
+    environment:
+      AUTH_ADDRESS: auth
     ports:
       - '8080:8080'
   tasks:
     build: ./tasks_api
-    ports:
-      - '8000:8000'
     environment:
       TASKS_FOLDER: tasks
+      AUTH_ADDRESS: auth
+    ports:
+      - '8000:8000'
