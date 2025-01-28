@@ -35,3 +35,13 @@ docker run -d -p 8000:8000 --name tasks-api --rm tasks-api
 docker build -t users-api ./users_api
 docker run -d -p 8080:8080 --name users-api --rm users-api
 ```
+
+- `http://localhost:8080/signup/` -> `{"message": "User created!"}`
+- `http://localhost:8080/login` -> `{"message": "abc"}`
+
+### Docker Compose
+
+```bash
+docker-compose up -d
+docker-compose down
+```
