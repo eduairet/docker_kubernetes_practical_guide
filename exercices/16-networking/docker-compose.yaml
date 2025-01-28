@@ -1,6 +1,8 @@
 services:
   auth:
     build: ./auth_api
+    ports:
+      - '80:80'
   users:
     build: ./users_api
     ports:
