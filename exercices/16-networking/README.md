@@ -26,8 +26,8 @@ docker build -t tasks-api ./tasks_api
 docker run -d -p 8000:8000 --name tasks-api --rm tasks-api
 ```
 
-- `http://localhost:8000/tasks/` -> `{"message":"No token provided","tasks":null,"created_task":null}`
-- `http://localhost:8000/tasks/ POST {"title":"Task 1","text":"Description"}` -> `{"message":"Task created.","tasks":[{"id":1,"title":"Task 1","text":"Description"}],"created_task":{"id":1,"title":"Task 1","text":"Description"}`
+- `http://localhost:8000/tasks/` -> `{"message":"Tasks loaded.","tasks":[{"title":"Task 1","text":"Description"}],"created_task":null}`
+- `http://localhost:8000/tasks/ POST {"title":"Task 1","text":"Description"}` -> `{"message":"Task stored.","tasks":null,"created_task":{"title":"Task 1","text":"Description"}}`
 
 ### Users API
 
@@ -36,8 +36,8 @@ docker build -t users-api ./users_api
 docker run -d -p 8080:8080 --name users-api --rm users-api
 ```
 
-- `http://localhost:8080/signup/` -> `{"message": "User created!"}`
-- `http://localhost:8080/login` -> `{"message": "abc"}`
+- `http://localhost:8080/signup` -> `{"message":"User created!"}`
+- `http://localhost:8080/login` -> `{"message":"abc"}`
 
 ### Docker Compose
 
