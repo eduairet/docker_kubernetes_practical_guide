@@ -5,6 +5,7 @@
 - [Auth API](./auth_api/)
 - [Tasks API](./tasks_api/)
 - [Users API](./users_api/)
+- [Frontend](./frontend/)
 
 ## Docker
 
@@ -64,9 +65,9 @@ docker push <username>/users-api:latest
 - Create the deployments and services
 
   ```bash
-  kubectl apply -f=./kubernetes/auth-deployment.yaml -f=./kubernetes/auth-service.yaml 
+  kubectl apply -f=./kubernetes/auth-deployment.yaml -f=./kubernetes/auth-service.yaml
   kubectl apply -f=./kubernetes/users-deployment.yaml -f=./kubernetes/users-service.yaml
-  kubectl apply -f=./kubernetes/tasks-deployment.yaml -f=./kubernetes/tasks-service.yaml 
+  kubectl apply -f=./kubernetes/tasks-deployment.yaml -f=./kubernetes/tasks-service.yaml
   ```
 
 - Get the services' IPs
