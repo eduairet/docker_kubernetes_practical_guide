@@ -40,6 +40,13 @@ docker run -d -p 8080:8080 --name users-api --rm users-api
 - `http://localhost:8080/signup` -> `{"message":"User created!"}`
 - `http://localhost:8080/login` -> `{"message":"abc"}`
 
+### Frontend
+
+```bash
+docker build -t frontend ./frontend
+docker run -d -p 80:80 --name frontend --rm frontend
+```
+
 ### Docker Compose
 
 ```bash
@@ -58,6 +65,9 @@ docker push <username>/tasks-api:latest
 
 docker build -t <username>/users-api:latest ./users_api
 docker push <username>/users-api:latest
+
+docker build -t <username>/frontend:latest ./frontend
+docker push <username>/frontend:latest
 ```
 
 ## Kubernetes
