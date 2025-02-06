@@ -3,10 +3,12 @@ use axum::{
     routing::{get, post},
     Json, Router,
 };
+use http::{header::AUTHORIZATION, Method};
 use reqwest;
 use serde::{Deserialize, Serialize};
 use std::{fs, path::PathBuf, sync::OnceLock};
 use tokio;
+use tower_http::cors::{Any, CorsLayer};
 
 #[derive(Serialize, Deserialize)]
 struct Task {
@@ -159,12 +161,17 @@ async fn main() {
         .set(PathBuf::from(format!("{}/tasks.txt", tasks_folder)))
         .unwrap();
 
+    let cors_layer = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
+        .allow_credentials(true)
+        .allow_headers([AUTHORIZATION]);
+
     let app = Router::new()
         .route("/tasks", get(get_tasks))
-        .route("/tasks", post(create_task));
+        .route("/tasks", post(create_task))
+        .layer(cors_layer);
 
-    axum::Server::bind(&"0.0.0.0:8000".parse().unwrap())
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:8000").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
 }
