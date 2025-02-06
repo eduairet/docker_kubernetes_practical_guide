@@ -66,11 +66,24 @@ docker push <username>/tasks-api:latest
 docker build -t <username>/users-api:latest ./users_api
 docker push <username>/users-api:latest
 
-docker build -t <username>/frontend:latest ./frontend
-docker push <username>/frontend:latest
+docker build -t <username>/tasks-frontend:latest ./frontend
+docker push <username>/tasks-frontend:latest
 ```
 
+- To make it easier you can run the shell script `./build-and-push-to-docker-hub.sh`
+
+  ```bash
+  chmod +x build-and-push-to-docker-hub.sh
+  ./build-and-push-to-docker-hub.sh
+  ```
+
 ## Kubernetes
+
+- Start Minikube
+
+  ```bash
+  minikube start
+  ```
 
 - Create the deployments and services
 
@@ -78,6 +91,7 @@ docker push <username>/frontend:latest
   kubectl apply -f=./kubernetes/auth-deployment.yaml -f=./kubernetes/auth-service.yaml
   kubectl apply -f=./kubernetes/users-deployment.yaml -f=./kubernetes/users-service.yaml
   kubectl apply -f=./kubernetes/tasks-deployment.yaml -f=./kubernetes/tasks-service.yaml
+  kubectl apply -f=./kubernetes/frontend-deployment.yaml -f=./kubernetes/frontend-service.yaml
   ```
 
 - Get the services' IPs
@@ -92,13 +106,14 @@ docker push <username>/frontend:latest
   minikube service auth-service
   minikube service tasks-service
   minikube service users-service
+  minikube service frontend-service
   ```
 
-- Terminate all services, deployments, and pods
+- Terminate the deployments and services by deleting the resources
 
   ```bash
-  kubectl delete services --all
-  kubectl delete deployments --all
-  kubectl delete pvc --all
-  kubectl delete pods --all
+  kubectl delete -f=./kubernetes/auth-deployment.yaml -f=./kubernetes/auth-service.yaml
+  kubectl delete -f=./kubernetes/users-deployment.yaml -f=./kubernetes/users-service.yaml
+  kubectl delete -f=./kubernetes/tasks-deployment.yaml -f=./kubernetes/tasks-service.yaml
+  kubectl delete -f=./kubernetes/frontend-deployment.yaml -f=./kubernetes/frontend-service.yaml
   ```
