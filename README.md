@@ -15,6 +15,7 @@ Study notes and exercises from **Docker &amp; Kubernetes: The Practical Guide**
 9. [Kubernetes in Action - Diving into the Core Concepts](./_notes/09-kubernetes-in-action.md)
 10. [Managing Data & Volumes with Kubernetes](./_notes/10-managing-data-and-volumes-with-kubernetes.md)
 11. [Kubernetes Networking](./_notes/11-kubernetes-networking.md)
+12. [Kubernetes - Deployment (AWS EKS)](./_notes/12-kubernetes-deployment.md)
 
 ## Exercises
 
